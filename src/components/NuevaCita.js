@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 
+const stateInicial = {
+    cita : {
+        mascota : '',
+        propietario : '',
+        fecha : '',
+        hora : '',
+        sintomas : ''
+    },
+    error : false
+}
+
 class NuevaCita extends Component {
-    state = {
-        cita : {
-            mascota : '',
-            propietario : '',
-            fecha : '',
-            hora : '',
-            sintomas : ''
-        },
-        error : false
-    };
+    state = { ...stateInicial };
 
     /**
      * Rellenamos el state cuando el usuario escribe
@@ -49,6 +51,10 @@ class NuevaCita extends Component {
         const nuevaCita = {...this.state.cita};
         nuevaCita.id = uuid();
         this.props.crearCita(nuevaCita);
+
+        this.setState({
+            ...stateInicial
+        });
     };
 
     render() {
